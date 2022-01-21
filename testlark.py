@@ -1,11 +1,13 @@
 import requests
 import json
 import time
+import os
+from dotenv import load_dotenv
 
+load_dotenv() 
 
+webhookurl = os.getenv('webhookurl')
 def send_alarm(data:str):
-  url = "https://open.larksuite.com/open-apis/bot/v2/hook/775ac01a-ff80-4a2e-94f1-82bde2db79b8"
-  
   payload = json.dumps({
     "msg_type": "post",
     "content": {
