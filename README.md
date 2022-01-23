@@ -11,8 +11,8 @@ We clean the data and send it as a payload in a POST request to the webhook url.
 <h4>Notes:</h4>
 
 We need to control the alerts to avoid alert panic.
-Implement an asyncio pattern and await before sending data to bot- control rate limit
-Implement a chaching mechanism to allow us control sendalarm heartbeat.
+Implement an asyncio pattern and await before sending data to bot- control rate limit.
+Implement a caching mechanism to allow us control sendalarm heartbeat.
 
 1. Fetch data from influxdb
     - Cache to redis
