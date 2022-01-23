@@ -5,8 +5,10 @@ We want to create a service that sends alert messages to a larkbot through webho
 To achieve this, we need to prepare the data to be sent as a message.
 We shall interact with our influxdb service and fetch data from the buckets.
 We clean the data and send it as a payload in a POST request to the webhook url.
+<br/>
+</hr>
 
-Notes:
+<h4>Notes:</h4>
 
 We need to control the alerts to avoid alert panic.
 Implement an asyncio pattern and await before sending data to bot- control rate limit
