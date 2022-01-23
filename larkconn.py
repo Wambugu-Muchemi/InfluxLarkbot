@@ -3,11 +3,13 @@ import json
 import time
 import os
 from dotenv import load_dotenv
+import asyncio
 
 load_dotenv() 
 
 webhookurl = os.getenv('webhookurl')
-def send_alarm(data:str):
+
+async def sendalert(data):
   payload = json.dumps({
     "msg_type": "post",
     "content": {
@@ -19,12 +21,8 @@ def send_alarm(data:str):
               {
                 "tag": "text",
                 "text": data
-              },
-              # {
-              #   "tag": "text",
-              #   "text": "POSTMANTEST",
-              #   "href": "GRAFANA RECORD"
-              # }
+              }, 
+              
             ]
           ]
         }
@@ -34,7 +32,10 @@ def send_alarm(data:str):
   headers = {
     'Content-Type': 'application/json'
   }
-
-  response = requests.request("POST", url, headers=headers, data=payload)
-
+  response = requests.request("POST", webhookurl, headers=headers, data=payload)
   print(response.text)
+  return data
+ 
+  
+
+  
