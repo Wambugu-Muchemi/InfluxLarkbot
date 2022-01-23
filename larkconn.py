@@ -32,9 +32,15 @@ async def sendalert(data):
   headers = {
     'Content-Type': 'application/json'
   }
-  response = requests.request("POST", webhookurl, headers=headers, data=payload)
-  print(response.text)
-  return data
+  try:
+        requests.request("POST", webhookurl, headers=headers, data=payload)
+  except print('error handling send to lark bot'):
+  #print(response.text)
+  
+    return None
+
+
+  
  
   
 

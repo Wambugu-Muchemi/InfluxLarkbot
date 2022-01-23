@@ -8,6 +8,8 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 from larkconn import sendalert
 import asyncio
 
+from cachealert import cachealert
+
 
 load_dotenv() 
 token = os.getenv('token')
@@ -15,14 +17,14 @@ url = os.getenv('url')
 
 async def queryInflux():
     bucket = 'zmmbucket'
-    with InfluxDBClient(url=url, token=token, org="AH", debug=True) as client:
+    with InfluxDBClient(url=url, token=token, org="AH", debug=False) as client:
         bucket = 'zmmbucket'
         query_api = client.query_api()
         """
         Query: using Stream
         """
-        records = query_api.query_stream('''
-        from(bucket:"zmmbucket")
+        records = query_api.query_stream(f'''
+        from(bucket:"{bucket}")
         |> range(start: -10s, stop: now())
         |> filter(fn: (r) => r["_measurement"] == "ping")
         |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
@@ -34,15 +36,14 @@ async def queryInflux():
         for record in records:
             await asyncio.sleep(4)
             rec = f'{record["host"]}  {record["name"]}'
-            #print(rec)
-            
             #need to implement caching
+            cachealert(rec)
             
-            #adjust to send to chacher or determinant for send alarm
-            #delegate send alarm to different function
+            #determinant for send alarm
+            #check if exist in cache 
+            #if not send alarm
             await sendalert(rec)
-            #send_alarm(rec)
-            
+          
             
 if __name__ == '__main__':
     asyncio.run(queryInflux())
