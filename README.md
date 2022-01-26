@@ -15,11 +15,17 @@ Implement an asyncio pattern and await before sending data to bot- control rate 
 Implement a caching mechanism to allow us control sendalarm heartbeat.
 
 1. Fetch data from influxdb
-    - Cache to redis
-    - Call sendAlarm function
+    - query influxdb api and pass influx query as payload
+    - Call cache function
 
-2. Alarm Function
-    - based on influx data, if exists in cache don't send post request
-    - if not in cache, send post request with results as payload
+2. Cache Function
+    - Define an alarm key from influx call result
+    - Check if key exists in redis db
+    - If exists ignore calling sendalert function
+    - If ! exists, call sendalert funtion and pass alarm message as payload
+
+2. SendAlert Function
+    - based on cache funtion result, send POST request to webhook url
+    - pass cache function result as payload
 
 
