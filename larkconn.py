@@ -37,7 +37,7 @@ def sendalert(data):
     'Content-Type': 'application/json'
   }
  
-  requests.request("POST", webhookurl, headers=headers, data=payload)
+  #requests.request("POST", webhookurl, headers=headers, data=payload)
   print('Alerted')
   print()
 

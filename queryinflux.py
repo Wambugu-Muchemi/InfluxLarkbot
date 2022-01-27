@@ -10,12 +10,18 @@ from larkconn import sendalert
 import asyncio
 import csv
 from cachealert import cachealert
+from celery import Celery
+
+
+app = Celery('tasks',broker='pyamqp://guest@localhost//')
+
 
 load_dotenv()
 
 token = os.getenv('token')
 url = os.getenv('url')
 buckets = ['zmmbucket', 'g44bucket', 'g45bucket']
+
 
 async def queryInflux(bucket):
 
@@ -45,13 +51,3 @@ async def queryInflux(bucket):
         return
 
 
-async def main():
-    start_time = time.strftime("%X")
-    await queryInflux('zmmbucket')
-    await queryInflux('g45bucket')
-    print(f'started at {start_time}')
-    print(f'finished at {time.strftime("%X")}')
-
-
-
-asyncio.run(main(), debug=True)
