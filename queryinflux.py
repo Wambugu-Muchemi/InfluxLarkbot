@@ -25,7 +25,7 @@ buckets = ['zmmbucket', 'g44bucket', 'g45bucket']
 
 async def queryInflux(bucket):
 
-    with InfluxDBClient(url=url, token=token, org="AH", debug=False) as client:
+    with InfluxDBClient(url=url, token=token,org='AH') as client:
 
         query_api = client.query_api()
         """
@@ -49,5 +49,9 @@ async def queryInflux(bucket):
             cachealert(rec)
             print(f'{record["host"]}')
         return
-
-
+    
+async def main():
+    await queryInflux()
+    
+if __name__ == '__main__':
+    asyncio.run(main())

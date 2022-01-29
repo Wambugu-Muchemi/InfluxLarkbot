@@ -14,7 +14,5 @@ async def main():
     print(f'started at {start_time}')
     print(f'finished at {time.strftime("%X")}')
 
-
-
 asyncio.run(main(), debug=True)
 
