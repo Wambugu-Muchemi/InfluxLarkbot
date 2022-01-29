@@ -47,7 +47,7 @@ For production environment we shall set more than one worker. The workers should
 Create log and pid directories:
 <code>
 sudo mkdir /var/log/celery /var/run/celery
-sudo chown celery:celery /var/log/celery /var/run/celery
+sudo chown $USER:$USER /var/log/celery /var/run/celery
 </code>
 Reload systemctl daemon. You should run this command each time you change the service definition file.
 
