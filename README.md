@@ -51,17 +51,17 @@ sudo chown celery:celery /var/log/celery /var/run/celery
 
 Reload systemctl daemon. You should run this command each time you change the service definition file.
 
-sudo systemctl daemon-reload
+<code>sudo systemctl daemon-reload</code>
 
 
 Enable the service to startup at boot:
 
-sudo systemctl enable celeryd
+<code>sudo systemctl enable celeryd</code>
 
 
 Start the service
 
-sudo systemctl start celeryd
+<code>sudo systemctl start celeryd</code>
 
 
 

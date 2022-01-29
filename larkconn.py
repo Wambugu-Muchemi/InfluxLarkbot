@@ -37,7 +37,7 @@ def sendalert(data):
     'Content-Type': 'application/json'
   }
  
-  #requests.request("POST", 'https://open.larksuite.com/open-apis/bot/v2/hook/775ac01a-ff80-4a2e-94f1-82bde2db79b8', headers=headers, data=payload)
+  #requests.request("POST", webhookurl, headers=headers, data=payload)
   print('Alerted')
   print()
 
