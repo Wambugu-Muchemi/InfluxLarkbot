@@ -53,14 +53,25 @@ Reload systemctl daemon. You should run this command each time you change the se
 
 <code>sudo systemctl daemon-reload</code>
 
+<h2>Daemonizing Celery</h2>
+We need two services:
+    <ol>
+    <li>Celery Beat Service</li>
+    <li>Celeryd service</li>
+    </ol>
 
-Enable the service to startup at boot:
+Enable the services to startup at boot:
 
+<h3>Celery Beat Service</h4>
 <code>sudo systemctl enable celeryd</code>
 
+<h3>Celery Beat Service</h4>
+<code>sudo systemctl enable celerybeat</code>
 
-Start the service
 
+Start the services
+
+<code>sudo systemctl start celeryd</code>
 <code>sudo systemctl start celeryd</code>
 
 
