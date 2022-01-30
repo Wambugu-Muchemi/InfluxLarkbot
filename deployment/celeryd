@@ -18,5 +18,5 @@ CELERYBEAT_LOG_FILE="/var/log/celery/beat.log"
 CELERYD_LOG_LEVEL=INFO
 
 # Path to celery binary, that is in your virtual environment
-CELERY_BIN=/home/ahadi-daniel/Projects/scripts/InfluxLarkbot/env/bin/celery
+Projects/scripts/InfluxLarkbot/env/bin/celery
 
