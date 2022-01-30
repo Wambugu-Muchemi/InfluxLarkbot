@@ -16,7 +16,7 @@ def cachealert(alrt):
             print('Faild cache')
         else:    
             pipe.hmset(alarmkey,alarmserial)
-            redisclient.expire(alarmkey,10)
+            redisclient.expire(alarmkey,2)
             pipe.execute()
             sendalert(alrt)
     

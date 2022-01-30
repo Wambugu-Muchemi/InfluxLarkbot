@@ -1,5 +1,6 @@
 
 import datetime as datetime
+from distutils.log import debug
 import sys
 import time
 import os
@@ -25,7 +26,7 @@ buckets = ['zmmbucket', 'g44bucket', 'g45bucket']
 
 async def queryInflux(bucket):
 
-    with InfluxDBClient(url=url, token=token,org='AH') as client:
+    with InfluxDBClient(url=url, token=token,org='AH',debug=True) as client:
 
         query_api = client.query_api()
         """
@@ -34,7 +35,7 @@ async def queryInflux(bucket):
 
         records = query_api.query_stream(f'''
             from(bucket:"{bucket}")
-            |> range(start: -10s, stop: now())
+            |> range(start: -5m, stop: now())
             |> filter(fn: (r) => r["_measurement"] == "ping")
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
@@ -50,8 +51,10 @@ async def queryInflux(bucket):
             print(f'{record["host"]}')
         return
     
-async def main():
-    await queryInflux()
-    
-if __name__ == '__main__':
-    asyncio.run(main())
+# async def main():
+#     for bucket in buckets:
+        
+#         await queryInflux(bucket)
+        
+
+#     asyncio.run(main())
