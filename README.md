@@ -68,6 +68,7 @@ Enable the services to startup at boot:
 <h3>Celery Beat Service</h4>
 <code>sudo systemctl enable celerybeat</code>
 
+</hr>
 
 Start the services
 
