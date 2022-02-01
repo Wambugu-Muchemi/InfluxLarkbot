@@ -1,22 +1,21 @@
+  GNU nano 5.4                                                                                      celeryd.service                                                                                                
 [Unit]
-Description=Celery Service to serve alarm workers
+Description=Celery Service
 After=network.target
 
 [Service]
 Type=simple
-User=ahadi-daniel
-Group=ahadi-daniel
+User=$USER
+Group=$USER
 EnvironmentFile=/etc/default/celeryd
-WorkingDirectory=/home/ahadi-daniel/Projects/scripts/InfluxLarkbot
-ExecStart=/bin/sh -c '${CELERY_BIN} multi start ${CELERYD_NODES} \
-  -A ${CELERY_APP} --pidfile=${CELERYD_PID_FILE} \
-  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} ${CELERYD_OPTS}'
-ExecStop=/bin/sh -c '${CELERY_BIN} multi stopwait ${CELERYD_NODES} \
-  --pidfile=${CELERYD_PID_FILE}'
-ExecReload=/bin/sh -c '${CELERY_BIN} multi restart ${CELERYD_NODES} \
-  -A ${CELERY_APP} --pidfile=${CELERYD_PID_FILE} \
-  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} ${CELERYD_OPTS}'
-
-[Install]
-WantedBy=multi-user.target
+WorkingDirectory=/Projects/scripts/InfluxLarkbot
+ExecStart=/bin/sh -c '${CELERY_BIN} -A $CELERY_APP multi start $CELERYD_NODES \
+        --pidfile=${CELERYD_PID_FILE} --logfile=${CELERYD_LOG_FILE} \
+        --loglevel="${CELERYD_LOG_LEVEL}" $CELERYD_OPTS'
+ExecStop=/bin/sh -c '${CELERY_BIN} multi stopwait $CELERYD_NODES \
+        --pidfile=${CELERYD_PID_FILE} --loglevel="${CELERYD_LOG_LEVEL}"'
+ExecReload=/bin/sh -c '${CELERY_BIN} -A $CELERY_APP multi restart $CELERYD_NODES \
+        --pidfile=${CELERYD_PID_FILE} --logfile=${CELERYD_LOG_FILE} \
+        --loglevel="${CELERYD_LOG_LEVEL}" $CELERYD_OPTS'
+Restart=always
     

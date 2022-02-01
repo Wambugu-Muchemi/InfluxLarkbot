@@ -34,6 +34,7 @@ Implement celery beat to allow us control workflow run behavior.
 <h2>Celery Implementation</h2>
 We shall use Celery as task runner and scheduler. We shall then define a celery beat to control number of runs for our workflow.
 
+
 <h2>Celery Workers as Daemons</h2>
 
 For production environment we shall set more than one worker. The workers should be daemonized so that they are started automatically at server startup.
@@ -42,8 +43,15 @@ For production environment we shall set more than one worker. The workers should
     2. Create a /etc/default/celeryd configuration file
     3. Create log and pid directories:
 
+</hr>
 
-<h2>Starting the service</h2>
+<h2>Daemonizing Celery</h2>
+We need two services:
+    <ol>
+    <li>Celery Beat Service</li>
+    <li>Celeryd service</li>
+    </ol>
+
 Create log and pid directories:
 <code>
 sudo mkdir /var/log/celery /var/run/celery
@@ -53,14 +61,20 @@ Reload systemctl daemon. You should run this command each time you change the se
 
 <code>sudo systemctl daemon-reload</code>
 
+Enable the services to startup at boot:
 
-Enable the service to startup at boot:
-
+<h3>Celery Beat Service</h4>
 <code>sudo systemctl enable celeryd</code>
 
+<h3>Celery Beat Service</h4>
+<code>sudo systemctl enable celerybeat</code>
 
-Start the service
+</hr>
 
+
+<h2>Starting the services</h2>
+
+<code>sudo systemctl start celeryd</code>
 <code>sudo systemctl start celeryd</code>
 
 
