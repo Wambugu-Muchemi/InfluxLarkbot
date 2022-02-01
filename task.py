@@ -4,7 +4,7 @@ import time
 from queryinflux import queryInflux
 import asyncio
 
-app = Celery('tasks',broker='pyamqp://guest@localhost:5672/')
+app = Celery('tasks',broker_url='pyamqp://guest@localhost//')
 app.conf.timezone = 'Africa/Nairobi'
 app.conf.beat_schedule = {
     'fetch  influxquery results':{

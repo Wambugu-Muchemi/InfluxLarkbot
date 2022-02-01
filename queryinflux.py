@@ -51,10 +51,13 @@ async def queryInflux(bucket):
             print(f'{record["host"]}')
         return
     
-# async def main():
-#     for bucket in buckets:
+async def main():
+    for bucket in buckets:
         
-#         await queryInflux(bucket)
+        await queryInflux(bucket)
         
 
-#     asyncio.run(main())
+#     
+
+if __name__ == '__main__':
+    asyncio.run(main())
