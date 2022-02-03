@@ -14,17 +14,15 @@ from cachealert import cachealert
 from celery import Celery
 
 
-app = Celery('tasks',broker='pyamqp://guest@localhost//')
-
 
 load_dotenv()
 
 token = os.getenv('token')
 url = os.getenv('url')
-buckets = ['zmmbucket', 'g44bucket', 'g45bucket']
 
 
-async def queryInflux(bucket):
+
+def queryInflux(bucket):
 
     with InfluxDBClient(url=url, token=token,org='AH',debug=True) as client:
 
@@ -35,29 +33,21 @@ async def queryInflux(bucket):
 
         records = query_api.query_stream(f'''
             from(bucket:"{bucket}")
-            |> range(start: -5m, stop: now())
+            |> range(start: -10m, stop: now())
             |> filter(fn: (r) => r["_measurement"] == "ping")
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
-            |> yield(name: "last")
+            |> aggregateWindow(every: 15m, fn: mean, createEmpty: false)
+            |> yield(name: "mean")
             |> unique(column: "name")
             ''')
-
-        for record in records:
-            await asyncio.sleep(1)
-            rec = f'{record["host"]} {record["name"]} Building'
-            # need to implement caching
-            cachealert(rec)
-            print(f'{record["host"]}')
-        return
+        if records:
     
-async def main():
-    for bucket in buckets:
-        
-        await queryInflux(bucket)
-        
-
-#     
-
-if __name__ == '__main__':
-    asyncio.run(main())
+            for record in records:
+                asyncio.sleep(3)
+                rec = f'{record["host"]} {record["name"]} Building'
+                # need to implement caching
+                cachealert(rec)
+                print(f'{record["host"]}')
+        else:
+            return None

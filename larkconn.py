@@ -38,7 +38,7 @@ def sendalert(data):
   }
  
   requests.request("POST", webhookurl, headers=headers, data=payload)
-  print('Alerted')
+  print(f'Alerted {data}')
   print()
 
   
