@@ -19,12 +19,13 @@ def sendalert(data):
     "content": {
       "post": {
         "en_us": {
-          "title": f"{data.split(' ')[0]} 2218 Offline Issue",
+          #"title": f"{data.split(' ')[0]} 2218 Offline Issue",
+          "title":"2218 OFFLINE ISSUE",
           "content": [
             [
               {
                 "tag": "text",
-                "text": data
+                "text": f"""{data}"""
               }, 
               
             ]
@@ -38,7 +39,8 @@ def sendalert(data):
   }
  
   requests.request("POST", webhookurl, headers=headers, data=payload)
-  print(f'Alerted {data}')
+  print(data)
+  #print(f'Alerted {data}')
   print()
 
   

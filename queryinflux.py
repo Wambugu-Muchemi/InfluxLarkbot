@@ -12,6 +12,7 @@ import asyncio
 import csv
 from cachealert import cachealert
 from celery import Celery
+from redis import Redis
 
 
 
@@ -20,11 +21,12 @@ load_dotenv()
 token = os.getenv('token')
 url = os.getenv('url')
 
-
+redisclient = Redis(db=1)
+bldgkeys = []
 
 def queryInflux(bucket):
 
-    with InfluxDBClient(url=url, token=token,org='AH',debug=True) as client:
+    with InfluxDBClient(url=url, token=token,org='AH',debug=False) as client:
 
         query_api = client.query_api()
         """
@@ -33,7 +35,7 @@ def queryInflux(bucket):
 
         records = query_api.query_stream(f'''
             from(bucket:"{bucket}")
-            |> range(start: -10m, stop: now())
+            |> range(start: -30m, stop: now())
             |> filter(fn: (r) => r["_measurement"] == "ping")
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
@@ -48,6 +50,11 @@ def queryInflux(bucket):
                 rec = f'{record["host"]} {record["name"]} Building'
                 # need to implement caching
                 cachealert(rec)
-                print(f'{record["host"]}')
+                
+            
+            for key in redisclient.scan_iter():
+                bldgkeys.append(key.decode('utf-8'))
+            sendalert(bldgkeys)
+            bldgkeys.clear()
         else:
             return None

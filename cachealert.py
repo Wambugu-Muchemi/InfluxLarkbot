@@ -13,13 +13,15 @@ def cachealert(alrt):
     alarmserial = {alarmkey:bldgname}
     with redisclient.pipeline() as pipe:
         if redisclient.hgetall(alarmkey):
-            print('Faild cache')
+            pass
+            
         else:    
             pipe.hmset(alarmkey,alarmserial)
             pipe.execute()
-            sendalert(alrt)
+    redisclient.close()
+        
     
-    print(f'Sending to Prepare & send alert..')
+    
    
     
     
