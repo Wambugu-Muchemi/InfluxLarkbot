@@ -25,6 +25,7 @@ redisclient = Redis(db=1)
 bldgkeys = []
 
 def queryInflux(bucket):
+    print(bucket)
 
     with InfluxDBClient(url=url, token=token,org='AH',debug=False) as client:
 
@@ -40,21 +41,16 @@ def queryInflux(bucket):
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
             |> aggregateWindow(every: 15m, fn: mean, createEmpty: false)
-            |> yield(name: "mean")
-            |> unique(column: "name")
-            ''')
+            |> yield(name: "mean")''')
         if records:
-    
-            for record in records:
-                asyncio.sleep(3)
-                rec = f'{record["host"]} {record["name"]} Building'
-                # need to implement caching
-                cachealert(rec)
-                
             
-            for key in redisclient.scan_iter():
-                bldgkeys.append(key.decode('utf-8'))
-            sendalert(bldgkeys)
-            bldgkeys.clear()
-        else:
-            return None
+            for record in records:
+                #asyncio.sleep(3)
+                if record["name"]:
+                    rec = f'{record["host"]} {record["name"]} Building'
+                    bldgkeys.append(rec)
+                # need to implement caching
+    #print(bldgkeys)
+    cachealert(bldgkeys)
+  
+    
