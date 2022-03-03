@@ -36,7 +36,7 @@ def queryInflux(bucket):
 
         records = query_api.query_stream(f'''
             from(bucket:"{bucket}")
-            |> range(start: -30m, stop: now())
+            |> range(start: -15m, stop: now())
             |> filter(fn: (r) => r["_measurement"] == "ping")
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
@@ -45,6 +45,7 @@ def queryInflux(bucket):
         if records:
             
             for record in records:
+                print(record)
                 #asyncio.sleep(3)
                 if record["name"]:
                     rec = f'{record["host"]} {record["name"]} Building'

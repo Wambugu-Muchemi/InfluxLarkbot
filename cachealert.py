@@ -49,18 +49,18 @@ def cacher(itemms):
             else:
                   
                 pipe.hmset(alarmkey,alarmserial)
+                pipe.expire(alarmkey,1800)
                 pipe.execute()
                 allalarms.append(alarmkey)
         redisclient.close()
     if allalarms:
         sendalert(allalarms)
-        allalarms.clear()
+        allalarms = []
     else:
         return None
         
-    # yield alrt
-    #print('sending alarm')
-    
+   
+   
     
     
     

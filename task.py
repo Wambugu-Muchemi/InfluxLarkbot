@@ -14,7 +14,8 @@ app.conf.beat_schedule = {
     }
 }
 
-buckets = ['zmmbucket','g45bucket', 'g44bucket']
+buckets = ['zmmbucket','g44bucket','g45bucket']
 @app.task(name='MAINTASK')
 def main():    
-    [queryInflux(bucket) for bucket in buckets]
+    for bucket in buckets:
+        queryInflux(bucket)
