@@ -37,8 +37,12 @@ def sendalert(data):
   headers = {
     'Content-Type': 'application/json'
   }
- 
-  yield requests.request("POST", webhookurl, headers=headers, data=payload)
+  if len(data) == 0:
+        print('Nothing to send')
+  else: 
+    requests.request("POST", webhookurl, headers=headers, data=payload)
+    #print(data)
+  return None
   
   #print(data)
   #print(f'Alerted {data}')

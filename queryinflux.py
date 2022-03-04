@@ -36,22 +36,27 @@ def queryInflux(bucket):
 
         records = query_api.query_stream(f'''
             from(bucket:"{bucket}")
-            |> range(start: -15m, stop: now())
+            |> range(start: -1m, stop: now())
             |> filter(fn: (r) => r["_measurement"] == "ping")
             |> filter(fn: (r) => r["_field"] == "percent_packet_loss")
             |> filter(fn: (r) => r["_value"] >= 100)
-            |> aggregateWindow(every: 15m, fn: mean, createEmpty: false)
+            |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
             |> yield(name: "mean")''')
         if records:
             
             for record in records:
-                print(record)
-                #asyncio.sleep(3)
-                if record["name"]:
-                    rec = f'{record["host"]} {record["name"]} Building'
+                #print(record)
+                time.sleep(2)
+                try:
+                    if record["name"]:
+                        rec = f'{record["host"]} {record["name"]} Building'
                     bldgkeys.append(rec)
+                except Exception as e:
+                    print(e)
+                
                 # need to implement caching
     #print(bldgkeys)
     cachealert(bldgkeys)
+    return None
   
     
