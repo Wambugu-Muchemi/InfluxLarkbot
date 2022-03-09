@@ -57,7 +57,12 @@ def cacher(itemms):
             
     sendalert(allalarms)
     
-    return allalarms.clear()
+    try:
+        allalarms.clear()
+        print(allalarms)
+        return None 
+    except  Exception as e:
+        print(e)
    
                 
 
