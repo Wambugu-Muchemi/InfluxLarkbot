@@ -21,13 +21,14 @@ load_dotenv()
 webhookurl = os.getenv('webhookurl')
 redisclient = Redis(db=1)
 
+#use as factory function
 def cachealert(alrt):
    # print(f'{alrt} will be cached...')
     itema = unique(alrt)
     #print(itema)
     return cacher(itema)
     
-
+#only get unique from list
 def unique(listel):
     x = np.array(listel)
     
@@ -41,19 +42,22 @@ def cacher(itemms):
         alarmkey = f"{host+ ':' + d.split()[1]}"
         bldgname = f'{d.split()[1]}'
         alarmserial = {alarmkey:bldgname}
+        
         if redisclient.hgetall(alarmkey):
-            print('incahe')
+            print('incache')
         else:    
             pipe = redisclient.pipeline()
             print('caching')
             pipe.hmset(alarmkey,alarmserial)
-            #pipe.expire(alarmkey,1800)
+            pipe.expire(alarmkey,1800)
+            print('Cached')
             pipe.execute()
+            
             allalarms.append(alarmkey)
             
     sendalert(allalarms)
-    allalarms.clear()
-    return None
+    
+    return allalarms.clear()
    
                 
 

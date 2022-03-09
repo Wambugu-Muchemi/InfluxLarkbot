@@ -40,9 +40,9 @@ def sendalert(data):
   if len(data) == 0:
         print('Nothing to send')
   else: 
-    requests.request("POST", webhookurl, headers=headers, data=payload)
+    
     #print(data)
-  return None
+    return requests.request("POST", webhookurl, headers=headers, data=payload)
   
   #print(data)
   #print(f'Alerted {data}')

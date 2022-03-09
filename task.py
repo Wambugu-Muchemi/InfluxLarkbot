@@ -10,7 +10,7 @@ app = Celery('task',broker='amqp://guest:guest@172.17.0.3:5672//',result_backend
 app.conf.beat_schedule = {
     'fetch  influxquery results':{
         'task': 'MAINTASK',
-        'schedule': 420,
+        'schedule': 300,
     }
 }
 
@@ -18,5 +18,5 @@ buckets = ['zmmbucket','g44bucket','g45bucket']
 @app.task(name='MAINTASK')
 def main():    
     for bucket in buckets:
-        queryInflux(bucket)
-    return None
+        data = queryInflux(bucket)
+    return data
