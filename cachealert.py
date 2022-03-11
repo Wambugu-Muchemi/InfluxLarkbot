@@ -56,10 +56,11 @@ def cacher(itemms):
             allalarms.append(alarmkey)
             
     sendalert(allalarms)
+    print(f'Before clear..{allalarms}')
     
     try:
         allalarms.clear()
-        print(allalarms)
+        print(f'After clear...{allalarms}')
         return None 
     except  Exception as e:
         print(e)
