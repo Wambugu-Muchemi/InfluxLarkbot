@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=ahadi-daniel
-Group=ahadi-daniel
+User=$USER
+Group=$USER
 EnvironmentFile=/etc/default/celeryd
 WorkingDirectory=Projects/scripts/InfluxLarkbot
 ExecStart=/bin/sh -c '${CELERY_BIN} -A ${CELERY_APP} beat \
