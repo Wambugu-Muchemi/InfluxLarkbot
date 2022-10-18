@@ -38,16 +38,16 @@ allalarms= []
 #allofflines = None
 def cacher(itemms):
     ts = itemms.tolist()
-    with open('G44.txt', 'a+') as f:
-        f.write("\\n The following Buildings are offline in G44: \\n") 
-    with open('ZMM.txt', 'a+') as f:
-        f.write("\\n The following Buildings are offline in ZMM: \\n") 
-    with open('G45.txt', 'a+') as f:
-        f.write("\\n The following Buildings are offline in G45: \\n")
-    with open('HTR.txt', 'a+') as f:
-        f.write("\\n The following Buildings are offline in HTR: \\n") 
-    with open('ROY.txt', 'a+') as f:
-        f.write("\\n The following Buildings are offline in RM: \\n")  
+    # with open('G44.txt', 'a+') as f:
+    #     f.write("\\n The following Buildings are offline in G44: \\n") 
+    # with open('ZMM.txt', 'a+') as f:
+    #     f.write("\\n The following Buildings are offline in ZMM: \\n") 
+    # with open('G45.txt', 'a+') as f:
+    #     f.write("\\n The following Buildings are offline in G45: \\n")
+    # with open('HTR.txt', 'a+') as f:
+    #     f.write("\\n The following Buildings are offline in HTR: \\n") 
+    # with open('ROY.txt', 'a+') as f:
+    #     f.write("\\n The following Buildings are offline in RM: \\n")  
     for d in ts:
         host = f'{d.split()[0]}'
         alarmkey = f"{host+ ':' + d.split()[1]}"
