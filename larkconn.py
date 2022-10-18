@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from redis import Redis
+from worklist import *
 
 redisclient = Redis(db=1)
 
@@ -15,14 +16,20 @@ webhookurl = os.getenv('webhookurl')
 
 def sendalert(data):
 <<<<<<< HEAD
+<<<<<<< HEAD
   if "FIBER" in data:
     print(data)
 
 =======
+=======
+>>>>>>> 21728ce (Updates to worklist)
 <<<<<<< HEAD
 =======
   if "FIBER" in data:
     print(data)
+=======
+  modifieddata = splitdata(data)
+>>>>>>> 8616670 (Updates to worklist)
 
 >>>>>>> bb0361f (test push user)
 >>>>>>> 9fcba1c (test push user)
@@ -45,7 +52,8 @@ def sendalert(data):
             [
               {
                 "tag": "text",
-                "text": f"""{data}"""
+                #"text": f"""{data}"""
+                "text": f"""{modifieddata}"""
               }, 
               
             ]
