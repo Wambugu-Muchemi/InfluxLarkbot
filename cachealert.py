@@ -37,7 +37,14 @@ def unique(listel):
 allalarms= []
 def cacher(itemms):
     ts = itemms.tolist()
+<<<<<<< HEAD
  
+=======
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> bb0361f (test push user)
+>>>>>>> 9fcba1c (test push user)
     for d in ts:
         host = f'{d.split()[0]}'
         alarmkey = f"{host+ ':' + d.split()[1]}"
@@ -53,16 +60,42 @@ def cacher(itemms):
             pipe.expire(alarmkey,1800)
             print('Cached')
             pipe.execute()
+<<<<<<< HEAD
             #print(alarmkey)
 
             print(alarmkey)
             allalarms.append(alarmkey)
 
+=======
+<<<<<<< HEAD
+            
+            allalarms.append(alarmkey)
+=======
+            #print(alarmkey)
+
+            print(alarmkey)
+            allalarms.append(alarmkey)
+
+>>>>>>> bb0361f (test push user)
+>>>>>>> 9fcba1c (test push user)
             
     sendalert(allalarms)
     print(f'Before clear..{allalarms}')
     
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+    try:
+        allalarms.clear()
+        print(f'After clear...{allalarms}')
+        return None 
+    except  Exception as e:
+        print(e)
+=======
+
+>>>>>>> bb0361f (test push user)
+>>>>>>> 9fcba1c (test push user)
    
                 
 
