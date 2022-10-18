@@ -14,13 +14,14 @@ webhookurl = os.getenv('webhookurl')
 
 
 def sendalert(data):
+
   payload = json.dumps({
     "msg_type": "post",
     "content": {
       "post": {
         "en_us": {
           #"title": f"{data.split(' ')[0]} 2218 Offline Issue",
-          "title":"2218 OFFLINE ISSUE",
+          "title":"OFFLINE BUILDINGS AS PER IAP PING STATUS",
           "content": [
             [
               {
