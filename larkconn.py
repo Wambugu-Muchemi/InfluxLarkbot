@@ -14,6 +14,8 @@ webhookurl = os.getenv('webhookurl')
 
 
 def sendalert(data):
+  if "FIBER" in data:
+    print(data)
 
   payload = json.dumps({
     "msg_type": "post",
