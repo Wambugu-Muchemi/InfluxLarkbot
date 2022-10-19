@@ -5,49 +5,68 @@ def splitdata(data):
     G44list1 = list(filter(r.match, data)) # Read Note below
     pattern = r'G44-FIBER:'
     G44list = [re.sub(r'G44-FIBER:', '', s) for s in G44list1]
-    print(G44list)
-    G44String = " " # Our string
-    # for x in G44list :
-    #     G44String += x
-    # print(G44String)
+    if G44list != []:
+        G44 = f"G44 REGION:\n {G44list}\n\n"
+    else:
+        G44 = ""
 
     r = re.compile('.*G45-FIBER')
     G45list1 = list(filter(r.match, data)) # Read Note below
     pattern = r'G45-FIBER:'
     G45list = [re.sub(r'G45-FIBER:', '', s) for s in G45list1]
-    print(G45list)
+    if G45list != []:
+        G45 = f"G45 REGION:\n {G45list}\n\n"
+    else:
+        G45 = ""
+
+    
 
     r = re.compile('.*KWT-FIBER')
     KWTlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'KWT-FIBER:'
     KWTlist = [re.sub(r'KWT-FIBER:', '', s) for s in KWTlist1]
-    print(KWTlist)
+    if KWTlist != []:
+        KWT = f"KWT REGION:\n {KWTlist}\n\n"
+    else:
+        KWT = ""
 
     r = re.compile('.*ZMM-FIBER')
     ZMMlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'ZMM-FIBER:'
     ZMMlist = [re.sub(r'ZMM-FIBER:', '', s) for s in ZMMlist1]
-    print(ZMMlist)
+    if ZMMlist != []:
+        ZMM = f"ZMM REGION:\n {ZMMlist}\n\n"
+    else:
+        ZMM = ""
 
     r = re.compile('.*ROY-FIBER')
     ROYlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'ROY-FIBER:'
     ROYlist = [re.sub(r'ROY-FIBER:', '', s) for s in ROYlist1]
-    print(ROYlist)
+    if ROYlist != []:
+        ROY = f"ROY REGION:\n {ROYlist}\n\n"
+    else:
+        ROY = ""
 
     r = re.compile('.*LSM-FIBER')
     LSMlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'LSM-FIBER:'
     LSMlist = [re.sub(r'LSM-FIBER:', '', s) for s in LSMlist1]
-    print(LSMlist)
+    if LSMlist != []:
+        LSM = f"LSM REGION:\n {LSMlist}\n\n"
+    else:
+        LSM = ""
 
     r = re.compile('.*HTR-FIBER')
     HTRlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'HTR-FIBER:'
     HTRlist = [re.sub(r'HTR-FIBER:', '', s) for s in HTRlist1]
-    print(HTRlist)
+    if HTRlist != []:
+        HTR = f"HTR REGION:\n {HTRlist}\n\n"
+    else:
+        HTR = ""
 
-    compressed = f"G44 REGION:\n {G44list}\n\n ZMM REGION:\n {ZMMlist}\n\n G45 REGION:\n {G45list}\n\n R&M REGION:\n {ROYlist}\n\n KWT REGION:\n {KWTlist}\n\n LSM REGION:\n {LSMlist}\n\n HTR REGION:\n {HTRlist}"
+    compressed = f"{G44}{ZMM}{G45}{ROY}{KWT}{LSM}{HTR}"
     print(compressed)
     return compressed
 
