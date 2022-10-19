@@ -83,19 +83,31 @@ def cacher(itemms):
     print(f'Before clear..{allalarms}')
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> d6ee04f (updates on cache)
+>>>>>>> 1825c19 (updates on cache)
     try:
         allalarms.clear()
         print(f'After clear...{allalarms}')
         return None 
     except  Exception as e:
         print(e)
+<<<<<<< HEAD
 =======
 
 >>>>>>> bb0361f (test push user)
+<<<<<<< HEAD
 >>>>>>> 9fcba1c (test push user)
+=======
+=======
+>>>>>>> d6ee04f (updates on cache)
+>>>>>>> 1825c19 (updates on cache)
    
                 
 
