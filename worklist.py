@@ -19,8 +19,6 @@ def splitdata(data):
     else:
         G45 = ""
 
-    
-
     r = re.compile('.*KWT-FIBER')
     KWTlist1 = list(filter(r.match, data)) # Read Note below
     pattern = r'KWT-FIBER:'
@@ -44,7 +42,7 @@ def splitdata(data):
     pattern = r'ROY-FIBER:'
     ROYlist = [re.sub(r'ROY-FIBER:', '', s) for s in ROYlist1]
     if ROYlist != []:
-        ROY = f"ROY REGION:\n {ROYlist}\n\n"
+        ROY = f"R&M REGION:\n {ROYlist}\n\n"
     else:
         ROY = ""
 
@@ -66,6 +64,7 @@ def splitdata(data):
     else:
         HTR = ""
 
+    #This will only send data from regions with offline buildings
     compressed = f"{G44}{ZMM}{G45}{ROY}{KWT}{LSM}{HTR}"
     print(compressed)
     return compressed
